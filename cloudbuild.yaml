@@ -11,6 +11,7 @@ steps:
        _CLOUDSDK_CONTAINER_CLUSTER=$(gcloud container clusters list --format="value[separator=':'](name))"
        echo $_CLOUDSDK_CONTAINER_CLUSTER
        echo $_CLOUDSDK_CONTAINER_CLUSTER > /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt
+       exit 0
     fi
 - name: "gcr.io/cloud-builders/docker"
   args: ["build", "-t", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest", "."]
