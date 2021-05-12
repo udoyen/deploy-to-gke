@@ -71,4 +71,4 @@ spec:
           - path: /*
             backend:
               serviceName: flask-kubernetes
-              servicePort: 8080
+              servicePort: 80
