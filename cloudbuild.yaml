@@ -3,8 +3,8 @@ steps:
   entrypoint: 'bash'
   args:
   - '-c'
-  - |
-    if [[ -z ${gcloud container clusters list} ]]
+  - |-
+    if (( -z $(gcloud container clusters list) ))
     then
        exit 1
        echo "Cluster not found!"
