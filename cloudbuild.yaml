@@ -4,7 +4,7 @@ steps:
   args:
   - '-c'
   - |-
-    if (( -z gcloud container clusters list )); then
+    if (( -z gcloud container clusters list | xargs -L 1 echo )); then
        exit 1
        echo "Cluster not found!"
     else
