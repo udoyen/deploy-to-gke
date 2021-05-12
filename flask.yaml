@@ -19,6 +19,8 @@ spec:
       containers:
       - image: europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
         name: gke-flask-sha256-1
         resources:
           limits:
