@@ -1,0 +1,47 @@
+[
+	{
+		"id": 1,
+		"name": "Evans Forson",
+		"email": "ataforson@gmail.com"
+	},
+	{
+		"id": 2,
+		"name": "Georg Udosen",
+		"email": "datameshprojects@gmail.com"
+	},
+	{
+		"id": 3,
+		"name": "Fon Nkwenti",
+		"email": "fonnkwenti85@gmail.com"
+	},
+	{
+		"id": 4,
+		"name": "Franklin Tallah",
+		"email": "ftallah@gmail.com"
+	},
+	{
+		"id": 5,
+		"name": "Gabriel Sallah",
+		"email": "gabriel.sallah@gmail.com"
+	},
+	{
+		"id": 6,
+		"name": "Seyram Komla Sapaty",
+		"email": "komlasapaty@gmail.com"
+	},
+	{
+		"id": 7,
+		"name": "Nbanjika",
+		"email": "nbanjika@gmail.com"
+	},
+	{
+		"id": 8,
+		"name": "Special Member",
+		"email": "specialmember@gmail.com"
+	},
+	{
+		"id": 9,
+		"name": "Special Member2",
+		"email": "specialmember2@gmail.com"
+	}
+]

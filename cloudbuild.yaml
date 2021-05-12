@@ -1,0 +1,15 @@
+steps:
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest", "."]
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"]
+  # deploy container image to GKE
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=./flask.yaml
+  - --image=europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest
+  - --location=europe-west2
+  - --cluster=autopilot-cluster-1
+images:
+- "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"

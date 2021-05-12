@@ -1,0 +1,7 @@
+.dockerignore
+Dockerfile
+Pipfile
+Pipfile.lock
+.gitignore
+templates
+venv

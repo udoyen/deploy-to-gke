@@ -1,0 +1,5 @@
+venv/
+templates/
+Pipefil
+Pipefile.lock
+
