@@ -1,19 +1,20 @@
 steps:
-- name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest", "."]
-- name: "gcr.io/cloud-builders/docker"
-  args: ["push", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"]
 - name: "gcr.io/cloud-builders/gcloud"
   entrypoint: 'bash'
   args:
-  - '-c'
-  - |-
+  - -c
+  - |
     if [[ -z gcloud container clusters ]]; then
        exit 1
        echo "Cluster not found!"
     else
        _CLOUDSDK_CONTAINER_CLUSTER=$(gcloud container clusters list --format="value[separator=':'](name))"
+       echo $_CLOUDSDK_CONTAINER_CLUSTER > /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt
     fi
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest", "."]
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"]
   # deploy container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
@@ -22,5 +23,7 @@ steps:
   - --image=europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest
   - --location=europe-west2
   - --cluster=${_CLOUDSDK_CONTAINER_CLUSTER}
+  env:
+  - '_CLOUDSDK_CONTAINER_CLUSTER=$(cat /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt)'
 images:
 - "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"

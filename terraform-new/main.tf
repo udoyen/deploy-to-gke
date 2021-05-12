@@ -1,6 +1,7 @@
 provider "google" {
   credentials = file("../gke-service-account.json")
-  project = "steam-kingdom-311415"
+  project     = var.project_id
+  region      = var.region
 }
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"

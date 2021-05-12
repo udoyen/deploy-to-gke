@@ -3,3 +3,5 @@ Pipefile
 templates/
 venv/
 gke-service-account.json
+terraform-new/
+app.yaml

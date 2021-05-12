@@ -1,6 +1,6 @@
 variable "project_id" {
   description = "The project ID to host the cluster in"
-  default = "steam-kingdom-311415"
+  default     = "steam-kingdom-311415"
 }
 variable "cluster_name" {
   description = "The name for the GKE cluster"
