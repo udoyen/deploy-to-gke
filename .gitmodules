@@ -1,0 +1,3 @@
+[submodule "terraform-new/terraform-new/.terraform/modules/gcp-network"]
+	path = terraform-new/terraform-new/.terraform/modules/gcp-network
+	url = https://github.com/terraform-google-modules/terraform-google-network
