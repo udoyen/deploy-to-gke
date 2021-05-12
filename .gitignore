@@ -1,5 +1,7 @@
 venv/
 templates/
-Pipefil
+Pipefile
 Pipefile.lock
+terraform-new/.terraform/
+gke-service-account.json
 

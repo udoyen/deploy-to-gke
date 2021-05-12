@@ -1,4 +1,5 @@
 Pipefile.lock
 Pipefile
-templates
-venv
+templates/
+venv/
+gke-service-account.json

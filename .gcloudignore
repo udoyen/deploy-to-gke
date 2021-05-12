@@ -3,5 +3,6 @@ Dockerfile
 Pipfile
 Pipfile.lock
 .gitignore
-templates
-venv
+templates/
+venv/
+gke-service-account.json
