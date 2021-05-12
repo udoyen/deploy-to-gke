@@ -2,7 +2,7 @@ steps:
 - name: "gcr.io/cloud-builders/gcloud"
   entrypoint: 'bash'
   args:
-  - -c
+  - '-c'
   - |
     if [[ -z ${gcloud container clusters list} ]]
     then
