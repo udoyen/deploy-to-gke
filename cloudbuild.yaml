@@ -4,11 +4,11 @@ steps:
   args:
   - '-c'
   - |-
-    if (( -z gcloud container clusters list | xargs -L 1 echo )); then
+    if (( -z gcloud container clusters list )); then
        exit 1
        echo "Cluster not found!"
     else
-       _CLOUDSDK_CONTAINER_CLUSTER=$(gcloud container clusters list --format="value[separator=':'](name))"
+       _CLOUDSDK_CONTAINER_CLUSTER=$(gcloud container clusters list --format="value[separator=':'](name)")
        echo $_CLOUDSDK_CONTAINER_CLUSTER
        echo $_CLOUDSDK_CONTAINER_CLUSTER > /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt
        exit 0
