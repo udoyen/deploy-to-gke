@@ -22,6 +22,6 @@ steps:
   - --location=${_LOCATION}
   - --cluster=${_CLOUDSDK_CONTAINER_CLUSTER}
   env:
-  - '${_LOCATION}=europe-west2'
+  - "${_LOCATION}=europe-west2"
 images:
 - "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"
