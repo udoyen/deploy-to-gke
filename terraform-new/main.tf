@@ -3,6 +3,17 @@ provider "google" {
   project     = var.project_id
   region      = var.region
 }
+
+# google_client_config and kubernetes provider must be explicitly specified like the following.
+data "google_client_config" "default" {}
+
+provider "kubernetes" {
+  load_config_file       = false
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+}
+
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"
   depends_on   = [module.gke]
@@ -42,23 +53,28 @@ module "gcp-network" {
 }
 
 module "gke" {
-  source            = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
-  project_id        = var.project_id
-  name              = "${var.cluster_name}-${var.env_name}"
-  regional          = true
-  region            = var.region
-  network           = module.gcp-network.network_name
-  subnetwork        = module.gcp-network.subnets_names[0]
-  ip_range_pods     = var.ip_range_pods_name
-  ip_range_services = var.ip_range_services_name
+  source                      = "terraform-google-modules/kubernetes-engine/google"
+  project_id                  = var.project_id
+  name                        = "${var.cluster_name}-${var.env_name}"
+  regional                    = true
+  region                      = var.region
+  network                     = module.gcp-network.network_name
+  subnetwork                  = module.gcp-network.subnets_names[0]
+  create_service_account      = false
+  service_account             = var.compute_engine_service_account
+  enable_binary_authorization = var.enable_binary_authorization
+  ip_range_pods               = var.ip_range_pods_name
+  ip_range_services           = var.ip_range_services_name
+  remove_default_node_pool    = true
   node_pools = [
     {
-      name           = "node-pool"
-      machine_type   = "e2-medium"
-      node_locations = "europe-west2-a,europe-west2-b,europe-west2-c"
-      min_count      = 1
-      max_count      = 2
-      disk_size_gb   = 30
+      name            = "node-pool"
+      machine_type    = "e2-medium"
+      node_locations  = "europe-west2-a,europe-west2-b,europe-west2-c"
+      min_count       = 1
+      max_count       = 3
+      disk_size_gb    = 30
+      service_account = var.compute_engine_service_account
     },
   ]
 }

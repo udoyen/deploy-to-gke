@@ -6,7 +6,7 @@ metadata:
     app: flask
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -19,58 +19,44 @@ spec:
       containers:
       - image: europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest
         imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-        name: gke-flask-sha256-1
-        resources:
-          limits:
-            cpu: 500m
-            ephemeral-storage: 1Gi
-            memory: 2Gi
-          requests:
-            cpu: 500m
-            ephemeral-storage: 1Gi
-            memory: 2Gi
-        securityContext:
-          capabilities:
-            drop:
-            - NET_RAW
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-
+        name: gke-flask
+        env:
+        - name: "PORT"
+          value: "8080"
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-kubernetes
+  name: flask-service
+  labels:
+    app: flask
 spec:
   type: NodePort
-  ports:
-    - port: 80
-      targetPort: 8080
   selector:
-    name: flask-kubernetes
+    app: flask
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
 
 ---
 
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: flask-kubernetes
+  name: flask-ingress
+  namespace: default
   annotations:
     cloud.google.com/load-balancer-type: "External"
-    kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-    - http:
-        paths:
-          - path: /*
-            backend:
-              serviceName: flask-kubernetes
-              servicePort: 80
+  - http:
+       paths:
+       - pathType: Prefix
+         path: /*
+         backend:
+            service:
+              name: flask-service
+              port: 
+                number: 80

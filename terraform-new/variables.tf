@@ -30,3 +30,13 @@ variable "ip_range_services_name" {
   description = "The secondary ip range to use for services"
   default     = "ip-range-services"
 }
+
+variable "compute_engine_service_account" {
+  description = "The service account"
+  default     = "gke-service-account@steam-kingdom-311415.iam.gserviceaccount.com"
+}
+
+variable "enable_binary_authorization" {
+  description = "Enable BinAuthZ Admission controller"
+  default     = false
+}
