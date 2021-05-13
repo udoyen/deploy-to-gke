@@ -4,7 +4,7 @@ steps:
   args:
   - '-c'
   - |-
-    ${_CLOUDSDK_CONTAINER_CLUSTER}=$(gcloud container clusters list --format="value[separator=':'](name)");
+    $(gcloud container clusters list --format="value[separator=':'](name)")=${_CLOUDSDK_CONTAINER_CLUSTER}
     echo '1'
     if (( -z ${_CLOUDSDK_CONTAINER_CLUSTER} )); then
        exit 1
