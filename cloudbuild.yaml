@@ -4,7 +4,7 @@ steps:
   args:
   - '-c'
   - |-
-    gcloud container clusters list --format="value[separator=':'](name)" | cat
+    gcloud container clusters list --format="value[separator=':'](name)" | cat > /workspace/${_CLOUDSDK_CONTAINER_CLUSTER}.txt
     cat ${_CLOUDSDK_CONTAINER_CLUSTER}.txt
     echo '1'
     if (( -z ${_CLOUDSDK_CONTAINER_CLUSTER} )); then
