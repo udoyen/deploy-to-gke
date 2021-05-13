@@ -7,6 +7,7 @@ steps:
     gcloud container clusters list --format="value[separator=':'](name)" | cat > /workspace/CLOUDSDK_CONTAINER_CLUSTER.txt
     cat CLOUDSDK_CONTAINER_CLUSTER.txt
     cat CLOUDSDK_CONTAINER_CLUSTER.txt | xargs -L 1 tee ${_CLOUDSDK_CONTAINER_CLUSTER}
+    ${_LOCATION}=europe-west2
     echo '1'
 - name: "gcr.io/cloud-builders/docker"
   waitFor: ['-']
