@@ -21,8 +21,5 @@ steps:
   - --image=europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest
   - --location=europe-west2
   - --cluster=studyjam-cluster-prod
-  env:
-  - '${_LOCATION}=europe-west2'
-  - '${_CONTAINER_CLUSTER}=${_CLOUDSDK_CONTAINER_CLUSTER}'
 images:
 - "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"
