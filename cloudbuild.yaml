@@ -7,12 +7,10 @@ steps:
     gcloud container clusters list --format="value[separator=':'](name)" | cat > /workspace/${_CLOUDSDK_CONTAINER_CLUSTER}.txt
     cat ${_CLOUDSDK_CONTAINER_CLUSTER}.txt
     echo '1'
-    if (( -z ${_CLOUDSDK_CONTAINER_CLUSTER} )); then
+    if (( -z cat ${_CLOUDSDK_CONTAINER_CLUSTER}.txt )); then
        exit 1
        echo "Cluster not found!"
     else
-       echo ${_CLOUDSDK_CONTAINER_CLUSTER};
-       echo ${_CLOUDSDK_CONTAINER_CLUSTER} > /workspace/${_CLOUDSDK_CONTAINER_CLUSTER}.txt;
        exit 0
     fi
 - name: "gcr.io/cloud-builders/docker"
