@@ -4,13 +4,13 @@ steps:
   args:
   - '-c'
   - |-
-    if (( -z $(gcloud container clusters list) )); then
+    ${_CLOUDSDK_CONTAINER_CLUSTER}=$(gcloud container clusters list --format="value[separator=':'](name)");
+    if (( -z ${_CLOUDSDK_CONTAINER_CLUSTER} )); then
        exit 1
        echo "Cluster not found!"
     else
-       _CLOUDSDK_CONTAINER_CLUSTER=$(gcloud container clusters list --format="value[separator=':'](name)");
-       echo $_CLOUDSDK_CONTAINER_CLUSTER;
-       echo $_CLOUDSDK_CONTAINER_CLUSTER > /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt;
+       echo ${_CLOUDSDK_CONTAINER_CLUSTER};
+       echo ${_CLOUDSDK_CONTAINER_CLUSTER} > /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt;
        exit 0
     fi
 - name: "gcr.io/cloud-builders/docker"
@@ -27,7 +27,7 @@ steps:
   - --location=europe-west2
   - --cluster=studyjam-cluster-prod
   env:
-  - '_LOCATION=europe-west2'
-  - '_CLOUDSDK_CONTAINER_CLUSTER=$(cat /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt)'
+  - '${_LOCATION}=europe-west2'
+  - '${_CLOUDSDK_CONTAINER_CLUSTER}=$(cat /workspace/_CLOUDSDK_CONTAINER_CLUSTER.txt)'
 images:
 - "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"
