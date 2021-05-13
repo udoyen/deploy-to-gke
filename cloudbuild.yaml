@@ -20,7 +20,7 @@ steps:
   - run
   - --filename=./flask.yaml
   - --image=europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest
-  - --location=${_LOCATION}
-  - --cluster=${_CLOUDSDK_CONTAINER_CLUSTER}
+  - --location=europe-west2
+  - --cluster=studyjam-cluster-prod
 images:
 - "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"
