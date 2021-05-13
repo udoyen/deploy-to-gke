@@ -14,6 +14,7 @@ steps:
        exit 0
     fi
 - name: "gcr.io/cloud-builders/docker"
+  waitFor: ['-']
   args: ["build", "-t", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest", "."]
 - name: "gcr.io/cloud-builders/docker"
   args: ["push", "europe-west2-docker.pkg.dev/steam-kingdom-311415/gke-deploy/gke-flask:latest"]
