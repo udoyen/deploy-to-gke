@@ -7,7 +7,7 @@ steps:
     gcloud container clusters list --format="value[separator=':'](name)" | cat > /workspace/CLOUDSDK_CONTAINER_CLUSTER.txt
     cat CLOUDSDK_CONTAINER_CLUSTER.txt
     echo '1'
-    if  [ -s /workspace/CLOUDSDK_CONTAINER_CLUSTER.txt ]; then
+    if  [ -s CLOUDSDK_CONTAINER_CLUSTER.txt ]; then
        exit 1
        echo "Cluster not found!"
     else
